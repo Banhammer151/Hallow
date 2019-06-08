@@ -6,7 +6,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
   //const user = message.mentions.users.first() || client.users.get(args[0]);
   //if (!user) return message.reply("You must mention someone or give their ID!");
 
-  const pointsToAdd = parseInt(args[1], 10);
+  const pointsToAdd = parseInt(args[0], 10);
   if (!pointsToAdd) 
     return message.reply("You didn't tell me how many points to give...");
   var membersArray = message.guild.members.array();
