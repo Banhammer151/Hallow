@@ -18,6 +18,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
   for (const data of top10) {
     embed.addField(client.users.get(data.username), `${data.points} points (level ${data.level})`);
   }
+  
   return message.channel.send({embed});
 };
 
