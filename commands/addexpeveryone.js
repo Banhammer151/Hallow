@@ -3,35 +3,39 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
   if (message.author.id !== message.guild.ownerID) 
     return message.reply("You're not the boss of me, you can't do that!");
 
-  // const user = message.mentions.users.first() || client.users.get(args[0]);
-  // if (!user) return message.reply("You must mention someone or give their ID!");
+  //const user = message.mentions.users.first() || client.users.get(args[0]);
+  //if (!user) return message.reply("You must mention someone or give their ID!");
 
-  // const pointsToAdd = parseInt(args[1], 10);
-  // if (!pointsToAdd) 
-  //   return message.reply("You didn't tell me how many points to give...");
-
-  // // Ensure there is a points entry for this user.
-  // client.points.ensure(`${message.guild.id}-${user.id}`, {
-  //   user: message.author.id,
-  //   guild: message.guild.id,
-  //   points: 0,
-  //   level: 1
-  // });
-
-  // // Get their current points.
-  // let userPoints = client.points.get(`${message.guild.id}-${user.id}`, "points");
-  // userPoints += pointsToAdd;
-
-
-  // // And we save it!
-  // client.points.set(`${message.guild.id}-${user.id}`, userPoints, "points");
-
-  // message.channel.send(`${user.tag} has received ${pointsToAdd} Experience and now stands at ${userPoints} Exp.`);
+  const pointsToAdd = parseInt(args[1], 10);
+  if (!pointsToAdd) 
+    return message.reply("You didn't tell me how many points to give...");
   var membersArray = message.guild.members.array();
+  for (var guildMemberId in membersArray) {
+    console.log(guildMemberId, membersArray[guildMemberId].user.id);
+    client.points.ensure(`${message.guild.id}-${membersArray[guildMemberId].user.id}`, {
+      user: membersArray[guildMemberId].user.id,
+      guild: message.guild.id,
+      points: 0,
+      level: 1
+    });
+    let userPoints = client.points.get(`${message.guild.id}-${membersArray[guildMemberId].user.id}`, "points");
+    userPoints += pointsToAdd;
+    client.points.set(`${message.guild.id}-${membersArray[guildMemberId].user.id}`, userPoints, "points");
+  }
+  // Ensure there is a points entry for this user.
+  
 
-for(var guildMemberId in membersArray) {
-   console.log(guildMemberId, membersArray[guildMemberId].user.username);
-}
+  // Get their current points.
+ 
+
+
+  // And we save it!
+ 
+
+  message.channel.send(`Yay! everyone got ${pointsToAdd} Souls!`);
+  
+
+
 };
 
 exports.conf = {
