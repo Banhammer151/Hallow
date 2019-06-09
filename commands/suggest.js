@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 const { version } = require("discord.js");
 const moment = require("moment");
 require("moment-duration-format");
