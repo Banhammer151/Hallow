@@ -26,7 +26,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
     res = reason;
   }
 
-  await member.ban(reason).catch(error => message.channel.send(`Sorry, I coldn't ban because of: ${error}`));
+  await member.ban({days:7, reason: reason}).catch(error => message.channel.send(`Sorry, I coldn't ban because of: ${error}`));
 
   const bean = new Discord.RichEmbed()
     .setColor("#00ff00")
